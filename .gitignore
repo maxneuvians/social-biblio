@@ -18,3 +18,4 @@
 # Other files
 /coverage
 /config/initializers/twitter.rb
+.DS_Store
