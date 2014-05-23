@@ -39,10 +39,10 @@ ActiveRecord::Schema.define(version: 20140522200848) do
     t.string   "username"
     t.string   "in_reply_to"
     t.integer  "followers"
-    t.string   "hashtags",         default: [], array: true
-    t.string   "urls",             default: [], array: true
-    t.string   "mentions",         default: [], array: true
-    t.time     "tweet_created_at"
+    t.text     "hashtags",         default: [], array: true
+    t.text     "urls",             default: [], array: true
+    t.text     "mentions",         default: [], array: true
+    t.datetime "tweet_created_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -8,10 +8,10 @@ class CreateTweets < ActiveRecord::Migration
       t.string :username, index: true
       t.string :in_reply_to, index: true
       t.integer :followers
-      t.string :hashtags, array: true, default: []
-      t.string :urls, array: true, default: []
-      t.string :mentions, array: true, default: []
-      t.time :tweet_created_at
+      t.text :hashtags, array: true, default: []
+      t.text :urls, array: true, default: []
+      t.text :mentions, array: true, default: []
+      t.datetime :tweet_created_at
 
       t.timestamps
     end

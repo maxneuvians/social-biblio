@@ -1,0 +1,2 @@
+module Ranking::ByMentionsHelper
+end

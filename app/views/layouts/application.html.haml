@@ -22,3 +22,81 @@
   = csrf_meta_tag
 
 %body
+  %header.navbar
+    .container
+      %button.navbar-toggle{"data-target" => ".sidebar-nav.nav-collapse", "data-toggle" => "collapse", type: "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a#main-menu-toggle.hidden-xs.open
+        %i.fa.fa-bars
+      = link_to root_path, :class => "navbar-brand col-md-2 col-sm-1 col-xs-2" do
+        = image_tag "canada.png", :width => 24
+        %span Social-Biblio.ca
+      #search.col-sm-5.col-xs-8.col-lg-3.pull-right.hidden-xs
+        %input{placeholder: "search", type: "text"}
+        %i.fa.fa-search
+
+  .container
+    .row
+      #sidebar-left.col-lg-2.col-sm-1
+        .sidebar-nav.nav-collapse.collapse.navbar-collapse
+          %ul.nav.main-menu
+            %li
+              = link_to root_path do
+                %i.fa.fa-dashboard
+                %span.hidden-sm.text Dashboard
+            %li
+              = link_to events_path do
+                %i.fa.fa-flask
+                %span.hidden-sm.text Events
+            %li
+              %a.dropmenu{href: "#"}
+                %i.fa.fa-bar-chart-o
+                %span.hidden-sm.text Stats
+                %span.chevron.closed
+            %li
+              %a.dropmenu{href: "#"}
+                %i.fa.fa-th-list
+                %span.hidden-sm.text Ranking
+                %span.chevron.closed
+              %ul
+                %li
+                  = link_to ranking_by_followers_path, :class => "submenu" do
+                    %i.fa.fa-users
+                    %span.hidden-sm.text By Followers
+                %li
+                  = link_to ranking_by_mentions_path, :class => "submenu" do
+                    %i.fa.fa-comments
+                    %span.hidden-sm.text By Mentions
+                %li
+                  = link_to ranking_by_tweets_path, :class => "submenu" do
+                    %i.fa.fa-twitter
+                    %span.hidden-sm.text By Tweets
+            %li
+              = link_to archive_index_path do
+                %i.fa.fa-archive
+                %span.hidden-sm.text Archive
+            %li
+              = link_to about_index_path do
+                %i.fa.fa-question
+                %span.hidden-sm.text About
+            %li
+              = link_to contact_us_path do
+                %i.fa.fa-send
+                %span.hidden-sm.text Contact Us
+
+      
+      #content.col-lg-10.col-sm-11
+        .row
+          .col-sm-12.col-md-9
+            %ol.breadcrumb
+              %li
+                %a{href: "/"} Social-Biblio.ca
+              %li.active Dashboard
+        
+            = yield
+
+        #feed.col-md-3.visible-md.visible-lg
+          %h2
+            Most Recent Tweets

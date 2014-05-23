@@ -1,0 +1,2 @@
+module Ranking::ByTweetsHelper
+end

@@ -1,0 +1,117 @@
+.row
+  .col-lg-3.col-sm-6
+    .smallchart.blue.box
+      .title Featured Event
+      .content
+        %img.img-responsive(src="http://placehold.it/600x400")
+      .value
+        event1
+
+  .col-lg-3.col-sm-6
+    .smallchart.blue.box
+      .title Featured Event
+      .content
+        %img.img-responsive(src="http://placehold.it/600x400")
+      .value
+        event1
+
+  .col-lg-3.col-sm-6
+    .smallchart.blue.box
+      .title Featured Event
+      .content
+        %img.img-responsive(src="http://placehold.it/600x400")
+      .value
+        event1
+
+  .col-lg-3.col-sm-6
+    .smallchart.blue.box
+      .title Featured Event
+      .content
+        %img.img-responsive(src="http://placehold.it/600x400")
+      .value
+        event1
+
+.row
+  .col-xs-12
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-bar-chart-o
+          Library Tweets for Today
+      .box-content
+        #today
+          #graphToday
+          %ul.stats
+            %li
+              %span= Tweet.get_library_stats_for_today.count
+              %h5 Total Tweets
+            %li
+              %span= Tweet.get_library_stats_for_today.pluck(:hashtags).inject(0){|sum,x| sum += x.length }
+              %h5 Hashtages
+            %li
+              %span= Tweet.get_library_stats_for_today.pluck(:mentions).inject(0){|sum,x| sum += x.length }
+              %h5 Mentions
+            %li
+              %span= Tweet.get_library_stats_for_today.pluck(:urls).inject(0){|sum,x| sum += x.length }
+              %h5 URLs
+
+.row
+  .col-xs-12.col-sm-6
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-tag
+          Hashtags trending today
+      .box-content
+        %table.table
+          %thead
+            %tr
+              %th
+                Hashtag
+              %th
+                Referenced
+          %tbody
+            - Tweet.get_library_stats_for_today.pluck(:hashtags).inject(Hash.new(0)){ |hsh,tags| tags.each{|tag| hsh[tag] += 1}; hsh }.sort_by{|k,v|v}.reverse[0..9].each do |hash|
+              %tr
+                %td= hash[0]
+                %td= hash[1]
+:javascript
+
+  var tweets = #{Tweet.get_library_stats_for_today_by_hour.to_a}
+
+  var plot = $.plot($("#graphToday"),
+    [ { data: tweets, label: "Tweets" } ], {
+      series: {
+        lines: { 
+          show: true,
+          lineWidth: 2,
+          fill: true,
+          fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.1 } ] } 
+        },
+        points: { 
+          show: true, 
+          lineWidth: 2 
+        },
+        shadowSize: 0
+      },
+      grid: { 
+        hoverable: true, 
+        clickable: true, 
+        borderWidth: 0,
+      },
+      tooltip: true,
+      tooltipOpts: {
+        content: "%y %s"
+      },
+      legend: {
+        show: false
+      },  
+      colors: ["#2FABE9"],
+      xaxis: {
+        ticks:10, 
+        tickDecimals: 0, 
+        tickColor: "#fff",
+        tickFormatter: function(value, object){ return value+":00";}
+      },
+      yaxis: {ticks:5, tickDecimals: 0, tickColor: "#e9ebec"},
+    });

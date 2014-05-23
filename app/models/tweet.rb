@@ -1,5 +1,7 @@
 class Tweet < ActiveRecord::Base
 
+  default_scope -> { order(:tweet_created_at => :desc) }
+
   validates :raw,               :presence => true
   validates :tweet_id,          :presence => true
   validates :content,           :presence => true
@@ -41,6 +43,14 @@ class Tweet < ActiveRecord::Base
 
     self.save!
 
+  end
+
+  def self.get_library_stats_for_today
+    where("username in (?) and tweet_created_at >= ?", Library.pluck(:username), Date.today)
+  end
+
+  def self.get_library_stats_for_today_by_hour
+    self.get_library_stats_for_today.group('EXTRACT(HOUR FROM tweet_created_at)').reorder('EXTRACT(HOUR from tweet_created_at)').count
   end
 
 end

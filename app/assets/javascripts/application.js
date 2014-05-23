@@ -10,6 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require excanvas
 //= require jquery
 //= require jquery_ujs
+//= require jquery.flot
+//= require jquery.flot.tooltip
+//= require bootstrap
+//= require core
 //= require_tree .
