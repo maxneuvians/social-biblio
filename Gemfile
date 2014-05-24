@@ -34,6 +34,8 @@ group :test do
   
   gem 'capybara'
   gem 'simplecov'
+  gem 'timecop'
+  gem 'rubocop', require: false
 
 end
 

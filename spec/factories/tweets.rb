@@ -2,15 +2,15 @@
 
 FactoryGirl.define do
   factory :tweet do
-    raw "MyText"
-    tweet_id "MyString"
-    content "MyText"
-    username "MyString"
-    in_reply_to "MyString"
-    followers 0
-    hashtags []
-    urls []
-    mentions []
-    tweet_created_at Time.now
+    raw '{"created_at": "Thu Mar 21 17:45:57 +0000 2013","id": 314795024158179300,"id_str": "314795024158179329","text": "@SocialBiblioCA Just added ours #Apps4Ottawa entry to the official site: http://t.co/e4Q3XdGe3g Again any is feedback more than welcome!","source": "<a href=\"http://itunes.apple.com/us/app/twitter/id409789998?mt=12\" rel=\"nofollow\">Twitter for Mac</a>","truncated": false,"in_reply_to_status_id": null,"in_reply_to_status_id_str": null,"in_reply_to_user_id": 494211421,"in_reply_to_user_id_str": "494211421","in_reply_to_screen_name": "SocialBiblioCA","user": {"id": 265998020,"id_str": "265998020","name": "Max Neuvians","screen_name": "maxneuvians","location": "Ottawa, ON","description": "Interested in social discovery of information, web and library metrics. Co-founded http://t.co/aLGTsenwP5","url": null,"entities": {"description": {"urls": [{"url": "http://t.co/aLGTsenwP5","expanded_url": "http://Social-Biblio.ca","display_url": "Social-Biblio.ca","indices": [83,105]}]}},"protected": false,"followers_count": 69,"friends_count": 53,"listed_count": 5,"created_at": "Mon Mar 14 13:36:30 +0000 2011","favourites_count": 0,"utc_offset": -14400,"time_zone": "Eastern Time (US & Canada)","geo_enabled": false,"verified": false,"statuses_count": 135,"lang": "en","contributors_enabled": false,"is_translator": false,"is_translation_enabled": false,"profile_background_color": "C6E2EE","profile_background_image_url": "http://abs.twimg.com/images/themes/theme2/bg.gif","profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme2/bg.gif","profile_background_tile": false,"profile_image_url": "http://pbs.twimg.com/profile_images/3144117814/57f8054930b432fd9f07559bffe836c1_normal.jpeg","profile_image_url_https": "https://pbs.twimg.com/profile_images/3144117814/57f8054930b432fd9f07559bffe836c1_normal.jpeg","profile_link_color": "1F98C7","profile_sidebar_border_color": "C6E2EE","profile_sidebar_fill_color": "DAECF4","profile_text_color": "663B12","profile_use_background_image": true,"default_profile": false,"default_profile_image": false,"following": false,"follow_request_sent": false,"notifications": false},"geo": null,"coordinates": null,"place": null,"contributors": null,"retweet_count": 0,"favorite_count": 0,"entities": {"hashtags": [{"text": "Apps4Ottawa","indices": [32,44]}],"symbols": [],"urls": [{"url": "http://t.co/e4Q3XdGe3g","expanded_url": "http://www.apps4ottawa.ca/en/apps/49","display_url": "apps4ottawa.ca/en/apps/49","indices": [73,95]}],"user_mentions": [{"screen_name": "SocialBiblioCA","name": "Social Biblio CA","id": 494211421,"id_str": "494211421","indices": [0,15]}]},"favorited": false,"retweeted": false,"possibly_sensitive": false,"lang": "en"}'
+    tweet_id "314795024158179329"
+    content "@SocialBiblioCA Just added ours #Apps4Ottawa entry to the official site: http://t.co/e4Q3XdGe3g Again any is feedback more than welcome!"
+    username "maxneuvians"
+    in_reply_to "SocialBiblioCA"
+    followers 69
+    hashtags ['Apps4Ottawa']
+    urls ['http://www.apps4ottawa.ca/en/apps/49']
+    mentions ['SocialBiblioCA']
+    tweet_created_at Time.zone.parse("Thu Mar 21 17:45:57 +0000 2013")
   end
 end

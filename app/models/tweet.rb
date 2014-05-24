@@ -45,12 +45,12 @@ class Tweet < ActiveRecord::Base
 
   end
 
-  def self.get_library_stats_for_today
+  def self.get_library_tweets_for_today
     where("username in (?) and tweet_created_at >= ?", Library.pluck(:username), Date.today)
   end
 
-  def self.get_library_stats_for_today_by_hour
-    self.get_library_stats_for_today.group('EXTRACT(HOUR FROM tweet_created_at)').reorder('EXTRACT(HOUR from tweet_created_at)').count
+  def self.get_library_tweets_for_today_by_hour
+    self.get_library_tweets_for_today.group('EXTRACT(HOUR FROM tweet_created_at)').reorder('EXTRACT(HOUR from tweet_created_at)').count
   end
 
 end

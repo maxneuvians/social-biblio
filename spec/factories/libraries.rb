@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :library do
-    twitter_id "MyString"
-    username "MyString"
+    twitter_id "265998020"
+    username "maxneuvians"
   end
 end
