@@ -4,12 +4,16 @@ class Library < ActiveRecord::Base
   validates :username,    :presence => true, :uniqueness => true
 
   def self.rank_by_followers
+
     rank = {}
-    pluck(:username).each do |username|
-      tweet = Tweet.find_by(:username => username)
-      rank[username] = tweet.followers if tweet
+
+    ids = Tweet.unscoped.select("MAX(id) AS id").where("username in (?)", self.pluck(:username)).group(:username).collect(&:id)
+    Tweet.unscoped.where(:id => ids).order('followers DESC').each do |tweet|
+      rank[tweet.username] = tweet.followers
     end
-    rank.sort_by{|k,v|v}.reverse
+
+    rank
+
   end
 
 end

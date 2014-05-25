@@ -1,6 +1,6 @@
 class Tweet < ActiveRecord::Base
 
-  #default_scope -> { order(:tweet_created_at => :desc) }
+  default_scope -> { order(:tweet_created_at => :desc) }
 
   validates :raw,               :presence => true
   validates :tweet_id,          :presence => true
