@@ -1,0 +1,10 @@
+%table.table
+  %thead
+    %tr 
+      %th Library
+      %th Follower count
+  %tbody
+    - Library.rank_by_followers.each do |name, followers|
+      %tr
+        %td= name
+        %td= followers
