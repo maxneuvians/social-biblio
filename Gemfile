@@ -41,8 +41,9 @@ end
 
 gem 'haml-rails'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
-gem 'twitter'
 gem 'tweetstream'
+gem 'twitter'
+gem 'twitter-text'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

@@ -224,11 +224,16 @@ GEM
       memoizable (~> 0.4.0)
       naught (~> 1.0)
       simple_oauth (~> 0.2.0)
+    twitter-text (1.9.0)
+      unf (~> 0.1.0)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -260,5 +265,6 @@ DEPENDENCIES
   timecop
   tweetstream
   twitter
+  twitter-text
   uglifier (>= 1.3.0)
   unicorn

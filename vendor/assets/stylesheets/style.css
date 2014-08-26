@@ -72,7 +72,7 @@ body.sidebar-minified:after {
   z-index: 0;
 }
 a {
-  color: #34383c;
+  /*color: #34383c;*/
 }
 h1 {
   font-size: 32px;

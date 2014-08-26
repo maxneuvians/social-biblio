@@ -1,0 +1,31 @@
+.row
+  .col-lg-6.col-lg-offset-3
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-user
+          Admin Login
+      .box-content
+        = form_tag admin_login_index_path, :method => :post, :id => "admin-login-form", :class => "form-horizontal" do
+          %fieldset.col-sm-12
+            - if flash[:error]
+              .alert.alert-danger.fade.in
+                %i.fa-fw.fa.fa-times
+                %strong Error!
+                = flash[:error]
+            .form-group
+              %label.control-label(for="email") Email
+              .controls.row
+                .input-group.col-sm-12
+                  %span.input-group-addon
+                    %i.fa.fa-envelope
+                  %input.form-control(type="text" name="email" id="email" required)
+            .form-group
+              %label.control-label(for="password") Password
+              .controls.row
+                .input-group.col-sm-12
+                  %span.input-group-addon
+                    %i.fa.fa-key
+                  %input.form-control(type="password" name="password" id="password" required)
+            .form-group
+              %button.btn.btn-primary(type="submit") Login

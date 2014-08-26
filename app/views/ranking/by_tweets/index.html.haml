@@ -3,11 +3,11 @@
     %tr 
       %th Rank
       %th Library
-      %th Follower count
+      %th Tweet count
   %tbody
-    - Library.rank_by_followers.each_with_index do |(name, followers), index|
+    - Library.rank_by_tweets.each_with_index do |(name, tweets), index|
       %tr
         %td= index + 1
         %td
           = link_to name, "https://twitter.com/#!/#{name}", :target => "_blank"
-        %td= followers
+        %td= tweets

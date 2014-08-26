@@ -1,0 +1,44 @@
+.row
+  .col-sm-12
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-bank
+          Libraries
+      .box-content
+        - if flash[:error]
+          .col-xs-12
+            .alert.alert-danger
+              %i.fa-fw.fa.fa-times
+              %strong Error!
+              = flash[:error]
+        - if flash[:success]
+          .col-xs-12
+            .alert.alert-success
+              %i.fa-fw.fa.fa-check
+              %strong Success!
+              = flash[:success]
+        = form_tag admin_libraries_path, :method => "post", :class => "form-horizontal" do
+          %fieldset.col-sm-12
+            .form-group
+              %label.control-label(for="screen_name") Twitter screen name
+              .controls.row
+                .input-group.col-sm-4
+                  %span.input-group-addon
+                    %i.fa.fa-bank
+                  %input.form-control(type="text" name="screen_name" id="screen_name" required)
+                .input-group.col-sm-4
+                  %button.btn.btn-primary(type="submit") Add library
+        %hr
+        %table.table
+          %thead
+            %tr 
+              %th Username
+              %th Twitter ID
+              %th Delete
+          %tbody
+            - Library.order(:username).all.each do |library|
+              %tr
+                %td= library.username
+                %td= library.twitter_id
+                %td= link_to "Delete", admin_library_path(library), :method => :delete, data: { confirm: "Are you sure you want delete this library?" }

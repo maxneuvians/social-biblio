@@ -91,12 +91,13 @@
         .row
           .col-sm-12.col-md-9
             %ol.breadcrumb
-              %li
-                %a{href: "/"} Social-Biblio.ca
-              %li.active Dashboard
+              - create_breadcrumbs(params[:controller]).each do |crumb|
+                %li= crumb
         
             = yield
 
         #feed.col-md-3.visible-md.visible-lg
           %h2
             Most Recent Tweets
+          - Tweet.limit(10).each do |tweet|
+            = render partial: "tweet", locals: {tweet: tweet}

@@ -2,6 +2,9 @@ class Tweet < ActiveRecord::Base
 
   default_scope -> { order(:tweet_created_at => :desc) }
 
+  scope :by_a_library, -> { where("username in (?)", Library.pluck(:username) ) }
+  scope :by_a_mentioner, -> { where("username not in (?)", Library.pluck(:username) ) }
+
   validates :raw,               :presence => true
   validates :tweet_id,          :presence => true
   validates :content,           :presence => true
@@ -45,8 +48,12 @@ class Tweet < ActiveRecord::Base
 
   end
 
+  def get_raw 
+    JSON.parse self.raw
+  end
+
   def self.get_library_tweets_for_today
-    where("username in (?) and tweet_created_at >= ?", Library.pluck(:username), Date.today)
+    by_a_library.where("tweet_created_at >= ?", Date.today)
   end
 
   def self.get_library_tweets_for_today_by_hour
