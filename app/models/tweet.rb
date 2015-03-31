@@ -1,9 +1,14 @@
 class Tweet < ActiveRecord::Base
 
+  include ChartHelper
+
+  belongs_to :library
+
   default_scope -> { order(:tweet_created_at => :desc) }
 
-  scope :by_a_library, -> { where("username in (?)", Library.pluck(:username) ) }
-  scope :by_a_mentioner, -> { where("username not in (?)", Library.pluck(:username) ) }
+  scope :by_a_library, -> { where("library_id != ?", 0 ) }
+  scope :by_a_mentioner, -> { where("library_id = 0") }
+  scope :between_dates, -> (start_date, end_date) { where("tweet_created_at >= ? and tweet_created_at <= ?", start_date.beginning_of_day, end_date.end_of_day)}
 
   validates :raw,               :presence => true
   validates :tweet_id,          :presence => true
@@ -44,6 +49,12 @@ class Tweet < ActiveRecord::Base
 
     self.tweet_created_at = Time.zone.parse(status["created_at"])
 
+    l = Library.where(:username => self.username).first
+
+    if l 
+      self.library = l 
+    end
+
     self.save!
 
   end
@@ -52,8 +63,16 @@ class Tweet < ActiveRecord::Base
     JSON.parse self.raw
   end
 
+  def self.get_by_date(date)
+    self.where("tweet_created_at >= ? and tweet_created_at <= ?", date.beginning_of_day, date.end_of_day)
+  end
+
+  def self.today
+    self.where("tweet_created_at >= ?", Date.today.beginning_of_day)
+  end
+
   def self.get_library_tweets_for_today
-    by_a_library.where("tweet_created_at >= ?", Date.today)
+    by_a_library.today
   end
 
   def self.get_library_tweets_for_today_by_hour

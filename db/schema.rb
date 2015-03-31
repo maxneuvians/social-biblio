@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140522200848) do
   create_table "tweets", force: true do |t|
     t.text     "raw"
     t.string   "tweet_id"
+    t.integer  "library_id",       default: 0
     t.text     "content"
     t.string   "username"
     t.string   "in_reply_to"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140522200848) do
   end
 
   add_index "tweets", ["hashtags"], name: "index_tweets_on_hashtags", using: :gin
+  add_index "tweets", ["library_id"], name: "index_tweets_on_library_id", using: :btree
   add_index "tweets", ["mentions"], name: "index_tweets_on_mentions", using: :gin
   add_index "tweets", ["urls"], name: "index_tweets_on_urls", using: :gin
 

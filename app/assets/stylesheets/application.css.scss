@@ -12,7 +12,9 @@
  *
  *= require_tree .
  *= require bootstrap
- *= require font-awesome
+ *= require datepicker
+ *= require font-awesome.css
+ *= require select2.min
  *= require style
  *= require_self
  */
@@ -25,6 +27,12 @@ text-align: center;
 .img-responsive.img-center {
 margin: 0 auto;
 padding-bottom: 10px;
+}
+
+.img-twitter-profile
+{
+  min-width: 52px;
+  min-height: 58px;
 }
 
 
@@ -44,5 +52,6 @@ margin-top: 10px;
 
 .twitter-profile-pic
 {
-margin-top: 35px;
+width: 70px;
+height: 70px;
 }

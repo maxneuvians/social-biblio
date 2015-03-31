@@ -1,0 +1,21 @@
+.box
+  .box-header
+    %h2 Archived tweets for #{@date.strftime("%Y-%m-%d")} 
+
+  .box-content
+    = form_tag archive_index_path, :method => :get, :class => "form-horizontal", :onSubmit => 'setArchiveDate();return false;' do 
+      %fieldset.col-xs-12
+        .form-group
+          .controls.row
+            .input-group.date.col-xs-9
+              %span.input-group-addon
+                %i.fa.fa-calendar
+              %input.form-control.datepicker#date(name="date" data-date-format="yyyy-mm-dd" value="#{@date.strftime("%Y-%m-%d")}")
+            .col-xs-3
+              %button.btn.btn-primary(type="submit") Change date
+    %hr
+    %p Showing #{@tweets.length} tweets
+    %br
+    %table
+      - @tweets.each do |tweet|
+        = render partial: "tweet", locals: {tweet: tweet}

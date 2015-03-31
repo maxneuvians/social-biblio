@@ -43,16 +43,16 @@
           #graphToday
           %ul.stats
             %li
-              %span= Tweet.get_library_tweets_for_today.count
+              %span= @total_tweets
               %h5 Total Tweets
             %li
-              %span= Tweet.get_library_tweets_for_today.pluck(:hashtags).inject(0){|sum,x| sum += x.length }
+              %span= @total_hashtags
               %h5 Hashtages
             %li
-              %span= Tweet.get_library_tweets_for_today.pluck(:mentions).inject(0){|sum,x| sum += x.length }
+              %span= @total_mentions
               %h5 Mentions
             %li
-              %span= Tweet.get_library_tweets_for_today.pluck(:urls).inject(0){|sum,x| sum += x.length }
+              %span= @total_urls
               %h5 URLs
 
 .row
@@ -71,47 +71,9 @@
               %th
                 Referenced
           %tbody
-            - Tweet.get_library_tweets_for_today.pluck(:hashtags).inject(Hash.new(0)){ |hsh,tags| tags.each{|tag| hsh[tag] += 1}; hsh }.sort_by{|k,v|v}.reverse[0..9].each do |hash|
+            - @hashtags.reverse[0..9].each do |hash|
               %tr
                 %td= hash[0]
                 %td= hash[1]
-:javascript
 
-  var tweets = #{Tweet.get_library_tweets_for_today_by_hour.to_a}
-
-  var plot = $.plot($("#graphToday"),
-    [ { data: tweets, label: "Tweets" } ], {
-      series: {
-        lines: { 
-          show: true,
-          lineWidth: 2,
-          fill: true,
-          fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.1 } ] } 
-        },
-        points: { 
-          show: true, 
-          lineWidth: 2 
-        },
-        shadowSize: 0
-      },
-      grid: { 
-        hoverable: true, 
-        clickable: true, 
-        borderWidth: 0,
-      },
-      tooltip: true,
-      tooltipOpts: {
-        content: "%y %s"
-      },
-      legend: {
-        show: false
-      },  
-      colors: ["#2FABE9"],
-      xaxis: {
-        ticks:10, 
-        tickDecimals: 0, 
-        tickColor: "#fff",
-        tickFormatter: function(value, object){ return value+":00";}
-      },
-      yaxis: {ticks:5, tickDecimals: 0, tickColor: "#e9ebec"},
-    });
+= high_chart("graphToday", Tweet.tweets_in_a_day_chart)

@@ -25,8 +25,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
-
+gem 'spring', group: :development
+gem 'bullet', group: :development
 gem 'rspec-rails'
 gem 'factory_girl_rails'
 
@@ -40,7 +40,10 @@ group :test do
 end
 
 gem 'haml-rails'
+gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'lazy_high_charts'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'quiet_assets', group: :development
 gem 'tweetstream'
 gem 'twitter'
 gem 'twitter-text'

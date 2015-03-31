@@ -1,0 +1,10 @@
+.box
+  .box-header
+    %h2 Search results for #{params[:query]}
+  .box-content
+    %p= page_entries_info @tweets
+    = paginate @tweets
+    %table
+      - @tweets.each do |tweet|
+        = render partial: "tweet", locals: {tweet: tweet}
+    = paginate @tweets

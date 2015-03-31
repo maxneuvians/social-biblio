@@ -13,8 +13,18 @@
 //= require excanvas
 //= require jquery
 //= require jquery_ujs
-//= require jquery.flot
-//= require jquery.flot.tooltip
 //= require bootstrap
 //= require core
+//= require bootstrap-datepicker.min
+//= require highcharts/highcharts
+//= require select2.min
 //= require_tree .
+
+$(document).ready(function(){
+  $('.datepicker').datepicker();
+});
+
+function setArchiveDate()
+{
+  window.location.href = "/archive/" + $('#date').val();
+}

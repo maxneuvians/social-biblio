@@ -33,9 +33,10 @@
       = link_to root_path, :class => "navbar-brand col-md-2 col-sm-1 col-xs-2" do
         = image_tag "canada.png", :width => 24
         %span Social-Biblio.ca
-      #search.col-sm-5.col-xs-8.col-lg-3.pull-right.hidden-xs
-        %input{placeholder: "search", type: "text"}
-        %i.fa.fa-search
+      = form_tag search_index_path, :method => :get do
+        #search.col-sm-5.col-xs-8.col-lg-3.pull-right.hidden-xs
+          %input{placeholder: "search", type: "text", name: "query"}
+          %i.fa.fa-search
 
   .container
     .row
@@ -52,9 +53,68 @@
                 %span.hidden-sm.text Events
             %li
               %a.dropmenu{href: "#"}
-                %i.fa.fa-bar-chart-o
+                %i.fa.fa-area-chart
                 %span.hidden-sm.text Stats
                 %span.chevron.closed
+              %ul#stats-links
+                %li
+                  %a.dropmenu{href: "#"}
+                    %i.fa.fa-line-chart
+                    %span.hidden-sm.text Over time
+                    %span.chevron.closed
+                  %ul
+                    %li
+                      = link_to stats_over_time_changes_in_followers_path , :class => "submenu" do
+                        %i.fa.fa-user-plus
+                        %span.hidden-sm.text Changes in followers
+                    %li
+                      = link_to stats_over_time_followers_path , :class => "submenu" do
+                        %i.fa.fa-users
+                        %span.hidden-sm.text Followers
+                    %li
+                      = link_to stats_over_time_mentions_path , :class => "submenu" do
+                        %i.fa.fa-comments
+                        %span.hidden-sm.text Mentions
+                    %li
+                      = link_to stats_over_time_tweets_path , :class => "submenu" do
+                        %i.fa.fa-twitter
+                        %span.hidden-sm.text Tweets
+                %li
+                  %a.dropmenu{href: "#"}
+                    %i.fa.fa-pie-chart
+                    %span.hidden-sm.text Ratios
+                    %span.chevron.closed
+                  %ul
+                    %li
+                      = link_to stats_ratios_hashtags_path , :class => "submenu" do
+                        %i.fa.fa-tags
+                        %span.hidden-sm.text Hastags
+                    %li
+                      = link_to stats_ratios_links_path , :class => "submenu" do
+                        %i.fa.fa-link
+                        %span.hidden-sm.text Links
+                    %li
+                      = link_to stats_ratios_mentions_path , :class => "submenu" do
+                        %i.fa.fa-comments
+                        %span.hidden-sm.text Mentions
+                %li
+                  %a.dropmenu{href: "#"}
+                    %i.fa.fa-bar-chart
+                    %span.hidden-sm.text Totals
+                    %span.chevron.closed
+                  %ul
+                    %li
+                      = link_to stats_totals_changes_in_followers_path , :class => "submenu" do
+                        %i.fa.fa-user-plus
+                        %span.hidden-sm.text Changes in followers
+                    %li
+                      = link_to stats_totals_mentions_path , :class => "submenu" do
+                        %i.fa.fa-comments
+                        %span.hidden-sm.text Mentions
+                    %li
+                      = link_to stats_totals_tweets_path , :class => "submenu" do
+                        %i.fa.fa-twitter
+                        %span.hidden-sm.text Tweets
             %li
               %a.dropmenu{href: "#"}
                 %i.fa.fa-th-list
@@ -99,5 +159,6 @@
         #feed.col-md-3.visible-md.visible-lg
           %h2
             Most Recent Tweets
-          - Tweet.limit(10).each do |tweet|
-            = render partial: "tweet", locals: {tweet: tweet}
+          %table
+            - Tweet.limit(10).each do |tweet|
+              = render partial: "tweet", locals: {tweet: tweet}

@@ -1,0 +1,125 @@
+.box
+  .box-header
+    %h2 
+      %i.fa.fa-search
+      Search criteria 
+  .box-content
+    = form_tag :class => "form-horizontal" do
+      %fieldset
+        .form-group.col-sm-12
+          %label.control-label Choose up to five libraries for comparison
+          .controls
+            %select.form-control#lib-select.select2(multiple="multiple" style="width:100%")
+              - Library.all.each do |library|
+                %option{ value: library.username}= library.username 
+        .form-group.col-sm-6
+          %label.control-label Start Date
+          .controls
+            %input.form-control#startDate
+        .form-group.col-sm-6
+          %label.control-label End Date
+          .controls
+            %input.form-control#endDate
+
+
+    %hr
+
+    #graph
+
+:javascript
+
+  var hash = window.location.hash;    
+  var dates = Array();
+  var names = Array();
+
+  $(document).ready(function(){
+    
+    $('.select2').select2({ maximumSelectionLength: 5});
+
+    $("#startDate, #endDate").datepicker({format: "yyyy-mm-dd"}).on('changeDate', function(e){ buildHash(); });
+    
+    $('#lib-select').on('change', function(e){ 
+      buildHash(e); 
+    })
+
+    parseHash();
+    
+
+  });
+
+  function buildHash( e )
+  {
+
+    if( $.trim( $('#startDate').val() ) != '' ){
+      dates[0] = $('#startDate').val();
+    }
+
+    if( $.trim( $('#endDate').val() ) != '' ){
+      dates[1] = $('#endDate').val();
+    }
+    
+    if( $.isArray(e) ){
+      names = e.val;
+    }else{
+      names = $('#lib-select').val();
+    }
+          
+    if(names && names.length != 0)
+    {
+      hash = names.join('/') + '/' + dates.join('/'); 
+      window.location.hash = hash;
+      $('#stats-links a').each(function(){this.hash = hash });
+    }
+
+    loadOptions()
+  }
+
+  function loadOptions()
+  {
+    if(names && names.length > 0){
+      $('#chart-container').html('<center><h5><img src="/images/ajax-loader.gif" width=16/>&nbsp; Loading ...</h5></center>');
+      var url = "?startDate=" + dates[0] + "&endDate=" + dates[1] + "&names=" + names.join()
+      $.getJSON(url, function(options){
+        new Highcharts.Chart(options) 
+      });
+    }
+  }
+
+  function parseHash()
+  {
+
+    var hold = hash.split('/');
+    
+    $.each( hold, function(i, v){
+      if( $.trim(v).length != 0 ){
+        v = v.replace('#','');
+        if( Date.parse(v) ){
+          dates.push(v);
+        }
+        else
+        {
+          names.push(v);
+        }
+      }
+    });
+    
+    if( dates.length == 0){
+      dates.push( "#{Date.today.strftime('%Y-%m-%d')}" );
+      dates.push( "#{(Date.today - 90).strftime('%Y-%m-%d')}" );
+    }
+    
+    if( dates.length == 1){
+      dates.push( "#{Date.today.strftime('%Y-%m-%d')}");     
+    }
+    
+    dates.sort();
+    names = names.slice(0,4);
+    
+    $('#startDate').datepicker( 'setValue', dates[0] );
+    $('#endDate').datepicker( 'setValue', dates[1] );
+    $('#lib-select').val(names).trigger("change");;
+    $('#stats-links a').each(function(){this.hash = hash });
+
+    loadOptions();
+  }
+

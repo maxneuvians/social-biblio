@@ -4,6 +4,7 @@ class CreateTweets < ActiveRecord::Migration
 
       t.text :raw
       t.string :tweet_id
+      t.references :library, :default => 0, index: true
       t.text :content
       t.string :username, index: true
       t.string :in_reply_to, index: true

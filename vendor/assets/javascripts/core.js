@@ -186,7 +186,7 @@ jQuery(document).ready(function (e) {
 });
 jQuery(document).ready(function (e) {
     e("ul.main-menu").find("a").each(function () {
-        if (e(e(this))[0].href == String(window.location)) {
+        if (e(e(this))[0].href == String(location.href.replace(location.hash,""))) {
             e(this).parent().addClass("active");
             e(this).parents("ul").add(this).each(function () {
                 e(this).show();
