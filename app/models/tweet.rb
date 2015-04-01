@@ -1,5 +1,8 @@
 class Tweet < ActiveRecord::Base
 
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   include ChartHelper
 
   belongs_to :library
@@ -17,6 +20,11 @@ class Tweet < ActiveRecord::Base
   validates :followers,         :presence => true
   validates :tweet_created_at,  :presence => true
 
+  def as_indexed_json(options={})
+    as_json(
+      only: [:id, :content, :username, :tweet_created_at]
+    )
+  end
 
   def build_from_json(json)
 

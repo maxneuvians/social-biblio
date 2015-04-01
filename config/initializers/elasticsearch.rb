@@ -1,0 +1,1 @@
+Tweet.__elasticsearch__.client = Elasticsearch::Client.new host: "0.0.0.0:9200"

@@ -160,5 +160,5 @@
           %h2
             Most Recent Tweets
           %table
-            - Tweet.limit(10).each do |tweet|
+            -# Tweet.limit(10).each do |tweet|
               = render partial: "tweet", locals: {tweet: tweet}

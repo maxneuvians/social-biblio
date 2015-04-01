@@ -39,8 +39,10 @@ group :test do
 
 end
 
-gem 'haml-rails'
 gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'haml-rails'
 gem 'lazy_high_charts'
 gem 'paperclip', :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'quiet_assets', group: :development

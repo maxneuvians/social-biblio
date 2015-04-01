@@ -48,4 +48,6 @@ Rails.application.configure do
     Bullet.console = true
   end
   
+  config.log_level = :info
+  
 end
